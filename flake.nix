@@ -14,7 +14,7 @@
           overlays = [ ];
         };
 
-        hello = pkgs.callPackage ./packages/hello { };
+        hello = pkgs.callPackage ./packages/testing/hello { };
 
       in
 
