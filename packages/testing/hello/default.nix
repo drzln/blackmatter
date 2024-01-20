@@ -19,4 +19,11 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/bin
     cp $src $out/bin/hello
   '';
+
+  meta = with lib; {
+    description = "A simple program that prints 'Hello, World!'";
+    homepage = https://www.gnu.org/software/hello/;
+    license = licenses.gpl3;
+    platforms = platforms.linux;
+  };
 }
