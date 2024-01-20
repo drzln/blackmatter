@@ -8,5 +8,5 @@
       url = "github:numtide/flake-utils";
     };
   };
-  outputs = {}: { };
+  outputs = { ... }: { };
 }
