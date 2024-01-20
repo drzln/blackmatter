@@ -14,13 +14,13 @@
           overlays = [ ];
         };
 
-        hello = pkgs.callPackage ./packages/testing/hello { };
+        # hello = pkgs.callPackage ./packages/testing/hello { };
 
       in
 
       {
         packages = {
-          hello = hello;
+          # hello = hello;
         };
       }
     );
