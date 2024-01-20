@@ -14,12 +14,13 @@
           overlays = [ ];
         };
 
-        myPackage = pkgs.callPackage ./path/to/my-package { };
+        hello = pkgs.callPackage ./packages/hello { };
+
       in
 
       {
         packages = {
-          my-package = myPackage;
+          hello = hello;
         };
       }
     );
