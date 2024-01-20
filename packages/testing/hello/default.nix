@@ -1,31 +1,42 @@
-{ pkgs, lib }:
+{ pkgs }:
 
 pkgs.stdenv.mkDerivation {
-  name = "hello";
+  name = "hello-ninja";
   version = "1.0";
 
-  src = pkgs.writeText "hello.c" ''
+  # Create the C source file and the Ninja build file
+  src = pkgs.runCommandNoCC "hello-src" { } ''
+    mkdir $out
+    cat >$out/hello.c <<EOF
     #include <stdio.h>
-
     int main() {
-        printf("Hello, World!\n");
+        printf("Hello, World!\\n");
         return 0;
     }
+    EOF
+
+    cat >$out/build.ninja <<EOF
+    rule cc
+      command = cc \$in -o \$out
+
+    build hello: cc hello.c
+    EOF
   '';
 
+  nativeBuildInputs = [ pkgs.ninja ];
+
   buildPhase = ''
-    $CC $src -o hello
+    cd $src
+    ninja -v
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    cp $src $out/bin/hello
+    cp $src/hello $out/bin/
   '';
 
-  meta = with lib; {
-    description = "A simple program that prints 'Hello, World!'";
-    homepage = https://www.gnu.org/software/hello/;
-    license = licenses.gpl3;
-    platforms = platforms.linux;
+  meta = with pkgs.lib; {
+    description = "A simple Hello World program built with Ninja";
+    platforms = pkgs.lib.platforms.all;
   };
 }
