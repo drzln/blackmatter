@@ -13,7 +13,9 @@ pkgs.stdenv.mkDerivation {
     }
   '';
 
-  doBuild = true;
+  buildPhase = ''
+    $CC $src -o hello
+  '';
 
   installPhase = ''
     mkdir -p $out/bin
