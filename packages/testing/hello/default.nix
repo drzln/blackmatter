@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, lib }:
 
 pkgs.stdenv.mkDerivation {
   name = "hello";
